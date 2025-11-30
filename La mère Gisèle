@@ -2,194 +2,140 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>La Mère Giselle - La Gamme</title>
+    <title>La Mère Giselle - Boutique Officielle</title>
     <style>
-        /* BASE & POLICES */
-        body { margin: 0; padding: 0; font-family: 'Georgia', serif; background-color: #fdfbf7; color: #4a4a4a; }
-        
-        /* HEADER */
-        header { text-align: center; padding: 40px 20px; border-bottom: 3px solid #d68e8e; background: white; }
-        
-        /* LOGO STYLISE (Simulation affichage) */
-        .brand-logo img {
-            max-width: 300px;
-            height: auto;
-            filter: sepia(0.3); /* Un petit effet rétro */
+        /* --- BASES & POLICES --- */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Police propre comme sur le site */
+            background-color: #ffffff; 
+            color: #1a1a1a; 
+        }
+
+        /* --- HEADER (LOGO) --- */
+        header { 
+            text-align: center; 
+            padding: 30px 20px; 
+            border-bottom: 1px solid #eee;
+            margin-bottom: 40px;
         }
         
-        .intro-text { font-style: italic; color: #888; margin-top: 10px; }
+        .brand-logo img {
+            max-width: 280px; /* Taille ajustée pour ton logo */
+            height: auto;
+        }
 
-        /* GRILLE PRODUITS */
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-        
-        h2.section-title {
-            text-align: center;
-            font-family: 'Times New Roman', serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #d68e8e;
-            margin-bottom: 50px;
-            border-bottom: 1px solid #ccc;
-            display: inline-block;
-            padding-bottom: 10px;
-            /* Centrage du titre */
-            position: relative;
-            left: 50%;
-            transform: translateX(-50%);
+        /* --- GRILLE PRODUITS --- */
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px 60px 20px; 
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 50px 30px; /* Espace vertical / horizontal */
         }
 
-        /* CARTE PRODUIT */
+        /* --- CARTE PRODUIT (Style fidèle au site Père Lucien) --- */
         .product-card {
-            background: white;
-            border: 1px solid #e0e0e0;
             text-align: center;
-            padding: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
+            background: white;
+            transition: all 0.3s ease;
         }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(214, 142, 142, 0.2);
-            border-color: #d68e8e;
-        }
-
-        /* SIMULATION VISUELLE DES PRODUITS (CSS pur + Images Unsplash) */
-        .product-img-container {
-            height: 250px;
-            overflow: hidden;
-            margin-bottom: 20px;
+        /* ZONE IMAGE */
+        .image-wrapper {
             position: relative;
+            height: 350px; /* Hauteur fixe pour alignement */
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f9f9f9;
+            background-color: #fcfcfc; /* Fond très léger derrière l'objet */
+            margin-bottom: 20px;
+            overflow: hidden;
         }
 
-        .product-img-container img {
-            max-width: 100%;
-            max-height: 100%;
-            mix-blend-mode: multiply; /* Pour fondre l'image */
+        .image-wrapper img {
+            max-height: 90%;
+            max-width: 90%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
         }
 
-        /* ETIQUETTE VIRTUELLE SUR LES PRODUITS */
-        .virtual-label {
+        .product-card:hover .image-wrapper img {
+            transform: scale(1.05); /* Zoom léger au survol */
+        }
+
+        /* Simulation de l'étiquette sur le flacon (CSS pur) */
+        .bottle-label-overlay {
             position: absolute;
-            bottom: 10px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255,255,255,0.9);
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 120px;
+            background: rgba(255, 245, 245, 0.95);
             border: 1px solid #d68e8e;
-            color: #d68e8e;
-            padding: 2px 8px;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
             z-index: 10;
         }
+        .bottle-logo-mini { width: 40px; margin-bottom: 5px; opacity: 0.8; }
 
-        /* INFO PRODUIT */
-        .product-cat { font-size: 0.75rem; text-transform: uppercase; color: #999; letter-spacing: 1px; }
-        .product-name { margin: 10px 0; font-size: 1.2rem; color: #2c2c2c; }
-        .product-price { color: #d68e8e; font-weight: bold; font-size: 1.1rem; }
-        
-        .btn-add {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            border: 1px solid #2c2c2c;
-            background: transparent;
-            color: #2c2c2c;
-            text-decoration: none;
-            font-size: 0.8rem;
+        /* TYPOGRAPHIE PRODUIT */
+        .category {
+            font-size: 0.75rem;
+            color: #999;
             text-transform: uppercase;
-            transition: all 0.3s;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
         }
 
-        .btn-add:hover { background: #d68e8e; border-color: #d68e8e; color: white; }
+        .product-title {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #333;
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+            min-height: 45px; /* Pour aligner les boutons */
+        }
 
-    </style>
-</head>
-<body>
+        .price {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif; /* Chiffres élégants */
+        }
 
-    <header>
-        <div class="brand-logo">
-            <img src="logo-giselle.png" alt="Logo La Mère Giselle" onerror="this.style.display='none'"> 
-            <h1 style="font-family:'Brush Script MT', cursive; font-size:3rem; color:#d68e8e; margin:0;">La Mère Giselle</h1>
-        </div>
-        <p class="intro-text">Manufacture de Cosmétiques à l'Ancienne - Gamme Féminine</p>
-    </header>
+        /* --- BOUTON (Style "Ajouter au panier" exact) --- */
+        .btn-add {
+            display: block;
+            width: 100%;
+            background-color: #b0a183; /* La couleur Kaki/Doré mat des captures */
+            color: white;
+            padding: 12px 0;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    <div class="container">
-        <h2 class="section-title">Les Essentiels du Boudoir</h2>
+        .btn-add:hover {
+            background-color: #d68e8e; /* Devient rose Giselle au survol */
+        }
 
-        <div class="product-grid">
-
-            <div class="product-card">
-                <div class="product-img-container">
-                    <span class="virtual-label">Giselle</span>
-                    <img src="https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Savon">
-                </div>
-                <div class="product-cat">Rasage Traditionnel</div>
-                <h3 class="product-name">Savon de Rasage "Douceur de Rose"</h3>
-                <p style="font-size:0.8rem; color:#666;">Bol Aluminium 100g - Enrichi au Karité</p>
-                <div class="product-price">18,90 €</div>
-                <a href="#" class="btn-add">Ajouter au panier</a>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img-container">
-                    <span class="virtual-label">Giselle</span>
-                    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Huile">
-                </div>
-                <div class="product-cat">Soin Post-Rasage</div>
-                <h3 class="product-name">Huile Apaisante Précieuse</h3>
-                <p style="font-size:0.8rem; color:#666;">Flacon pipette 30ml - Calendula & Amande</p>
-                <div class="product-price">24,50 €</div>
-                <a href="#" class="btn-add">Ajouter au panier</a>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img-container">
-                    <img src="https://images.unsplash.com/photo-1599305090598-fe179d501227?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Rasoir">
-                </div>
-                <div class="product-cat">Accessoires</div>
-                <h3 class="product-name">Le Rasoir de Dame</h3>
-                <p style="font-size:0.8rem; color:#666;">Manche en Bois de Rose & Laiton</p>
-                <div class="product-price">45,00 €</div>
-                <a href="#" class="btn-add">Ajouter au panier</a>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img-container">
-                    <img src="https://images.unsplash.com/photo-1606297042795-c2664c39178a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Trousse">
-                </div>
-                <div class="product-cat">Maroquinerie</div>
-                <h3 class="product-name">Trousse "Voyage d'Antan"</h3>
-                <p style="font-size:0.8rem; color:#666;">Cuir véritable pleine fleur - Camel</p>
-                <div class="product-price">59,00 €</div>
-                <a href="#" class="btn-add">Ajouter au panier</a>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img-container">
-                    <span class="virtual-label">Giselle</span>
-                    <img src="https://images.unsplash.com/photo-1600618528240-fb9fc964b853?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Savon Solide">
-                </div>
-                <div class="product-cat">Bain & Cheveux</div>
-                <h3 class="product-name">Le Pavé de la Mère Giselle</h3>
-                <p style="font-size:0.8rem; color:#666;">Shampoing & Corps - Saponifié à froid</p>
-                <div class="product-price">12,50 €</div>
-                <a href="#" class="btn-add">Ajouter au panier</a>
-            </div>
-
-        </div>
-    </div>
-</body>
-</html>
+        /* Petit footer simple */
+        .
